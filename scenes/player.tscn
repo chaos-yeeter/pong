@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://p8hntkifgwhp"]
+
+[ext_resource type="Script" path="res://scripts/player_movement.gd" id="1_h2481"]
+
+[sub_resource type="Gradient" id="Gradient_wgp6n"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vuk5s"]
+gradient = SubResource("Gradient_wgp6n")
+width = 32
+height = 128
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rvl2p"]
+size = Vector2(32, 128)
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_h2481")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_vuk5s")
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 64)
+shape = SubResource("RectangleShape2D_rvl2p")
