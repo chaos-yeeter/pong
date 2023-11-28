@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmnwp8s1c0q8w"]
+
+[ext_resource type="PackedScene" uid="uid://4ric4mecwg31" path="res://scenes/ai.tscn" id="1_0lhrg"]
+[ext_resource type="PackedScene" uid="uid://p8hntkifgwhp" path="res://scenes/player.tscn" id="2_v5ay1"]
+
+[node name="level" type="Node2D"]
+
+[node name="collision" type="StaticBody2D" parent="."]
+
+[node name="shape" type="CollisionPolygon2D" parent="collision"]
+polygon = PackedVector2Array(0, 0, 1152, 0, 1152, 648, 0, 648, 0, 8, -24, 8, -24, 672, 1176, 672, 1176, -32, -24, -32, -24, 8, 0, 8)
+
+[node name="camera" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="ai" parent="." instance=ExtResource("1_0lhrg")]
+position = Vector2(8, 8)
+
+[node name="player" parent="." instance=ExtResource("2_v5ay1")]
+position = Vector2(1112, 0)
