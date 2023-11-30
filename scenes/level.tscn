@@ -17,8 +17,9 @@ polygon = PackedVector2Array(0, 648, 1152, 648, 608, 712)
 [node name="camera" type="Camera2D" parent="."]
 anchor_mode = 0
 
-[node name="ai" parent="." instance=ExtResource("1_0lhrg")]
+[node name="ai" parent="." node_paths=PackedStringArray("ball") instance=ExtResource("1_0lhrg")]
 position = Vector2(24, 72)
+ball = NodePath("../ball")
 
 [node name="player" parent="." instance=ExtResource("2_v5ay1")]
 position = Vector2(1128, 72)
