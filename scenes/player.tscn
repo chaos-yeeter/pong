@@ -1,17 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://p8hntkifgwhp"]
+[gd_scene load_steps=4 format=3 uid="uid://p8hntkifgwhp"]
 
 [ext_resource type="Script" path="res://scripts/player_movement.gd" id="1_h2481"]
+[ext_resource type="Texture2D" uid="uid://u6vmv5fd1848" path="res://assets/paddle.png" id="2_gua71"]
 
-[sub_resource type="Gradient" id="Gradient_wgp6n"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_vuk5s"]
-gradient = SubResource("Gradient_wgp6n")
-width = 32
-height = 128
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rvl2p"]
-size = Vector2(32, 128)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pavkm"]
+radius = 8.0
+height = 130.0
 
 [node name="player" type="CharacterBody2D"]
 motion_mode = 1
@@ -19,7 +13,7 @@ wall_min_slide_angle = 3.14159
 script = ExtResource("1_h2481")
 
 [node name="sprite" type="Sprite2D" parent="."]
-texture = SubResource("GradientTexture2D_vuk5s")
+texture = ExtResource("2_gua71")
 
 [node name="collision" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_rvl2p")
+shape = SubResource("CapsuleShape2D_pavkm")

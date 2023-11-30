@@ -1,18 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7kpam8skvq3o"]
+[gd_scene load_steps=4 format=3 uid="uid://c7kpam8skvq3o"]
 
 [ext_resource type="Script" path="res://scripts/ball_movement.gd" id="1_ddc23"]
+[ext_resource type="Texture2D" uid="uid://15qrbyuvk3cg" path="res://assets/ball.png" id="2_qdgvg"]
 
-[sub_resource type="Gradient" id="Gradient_uja4w"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_6neup"]
-gradient = SubResource("Gradient_uja4w")
-width = 16
-height = 16
-fill = 1
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m813o"]
-size = Vector2(16, 16)
+[sub_resource type="CircleShape2D" id="CircleShape2D_yfuhf"]
+radius = 8.0
 
 [node name="ball" type="CharacterBody2D"]
 motion_mode = 1
@@ -20,7 +12,7 @@ wall_min_slide_angle = 3.14159
 script = ExtResource("1_ddc23")
 
 [node name="sprite" type="Sprite2D" parent="."]
-texture = SubResource("GradientTexture2D_6neup")
+texture = ExtResource("2_qdgvg")
 
 [node name="shape" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_m813o")
+shape = SubResource("CircleShape2D_yfuhf")
