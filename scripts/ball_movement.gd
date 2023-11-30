@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var movement_speed: float = 200
+@export var movement_speed: float = 250
 
 func _ready():
 	velocity = Vector2(randf_range(0.1, 0.7), randf_range(0.1, 0.7)) * movement_speed
