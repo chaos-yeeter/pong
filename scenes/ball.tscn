@@ -15,6 +15,8 @@ fill = 1
 size = Vector2(16, 16)
 
 [node name="ball" type="CharacterBody2D"]
+motion_mode = 1
+wall_min_slide_angle = 3.14159
 script = ExtResource("1_ddc23")
 
 [node name="sprite" type="Sprite2D" parent="."]
