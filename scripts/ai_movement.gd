@@ -4,6 +4,15 @@ extends CharacterBody2D
 @export var acceleration: float = 32
 @export var ball: CharacterBody2D
 
+var initial_position: Vector2
+
+func reset():
+	velocity = Vector2.ZERO
+	self.set_position(initial_position)
+
+func _ready():
+	initial_position = self.get_position()
+	assert(ball != null, "Assign ball to %s" % self.get_name())
 
 func _process(_delta):
 	# run computation once every x frames
