@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dmnwp8s1c0q8w"]
+[gd_scene load_steps=9 format=3 uid="uid://dmnwp8s1c0q8w"]
 
 [ext_resource type="PackedScene" uid="uid://4ric4mecwg31" path="res://scenes/ai.tscn" id="1_0lhrg"]
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_p3ynk"]
 [ext_resource type="Script" path="res://scripts/score_on_death.gd" id="2_q0wue"]
 [ext_resource type="PackedScene" uid="uid://p8hntkifgwhp" path="res://scenes/player.tscn" id="2_v5ay1"]
 [ext_resource type="PackedScene" uid="uid://c7kpam8skvq3o" path="res://scenes/ball.tscn" id="3_7xreh"]
@@ -13,6 +14,7 @@ size = Vector2(4, 768)
 size = Vector2(4, 768)
 
 [node name="level" type="Node2D"]
+script = ExtResource("1_p3ynk")
 
 [node name="camera" type="Camera2D" parent="."]
 anchor_mode = 0
