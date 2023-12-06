@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://dmnwp8s1c0q8w"]
+[gd_scene load_steps=8 format=3 uid="uid://dmnwp8s1c0q8w"]
 
 [ext_resource type="PackedScene" uid="uid://4ric4mecwg31" path="res://scenes/ai.tscn" id="1_0lhrg"]
-[ext_resource type="Script" path="res://scripts/level.gd" id="1_p3ynk"]
 [ext_resource type="Script" path="res://scripts/score_on_death.gd" id="2_q0wue"]
 [ext_resource type="PackedScene" uid="uid://p8hntkifgwhp" path="res://scenes/player.tscn" id="2_v5ay1"]
 [ext_resource type="PackedScene" uid="uid://c7kpam8skvq3o" path="res://scenes/ball.tscn" id="3_7xreh"]
@@ -14,7 +13,6 @@ size = Vector2(4, 768)
 size = Vector2(4, 768)
 
 [node name="level" type="Node2D"]
-script = ExtResource("1_p3ynk")
 
 [node name="collision" type="StaticBody2D" parent="."]
 
@@ -55,12 +53,12 @@ horizontal_alignment = 1
 [node name="player" parent="." instance=ExtResource("2_v5ay1")]
 position = Vector2(1358, 65)
 
-[node name="player death zone" type="Area2D" parent="." node_paths=PackedStringArray("ball", "opponents_score_label")]
+[node name="player_death_zone" type="Area2D" parent="." node_paths=PackedStringArray("ball", "opponents_score_label")]
 script = ExtResource("2_q0wue")
 ball = NodePath("../ball")
 opponents_score_label = NodePath("../ai_score")
 
-[node name="shape" type="CollisionShape2D" parent="player death zone"]
+[node name="shape" type="CollisionShape2D" parent="player_death_zone"]
 position = Vector2(1369, 384)
 shape = SubResource("RectangleShape2D_ntq8l")
 
@@ -83,4 +81,4 @@ horizontal_alignment = 1
 position = Vector2(683, 391)
 
 [connection signal="body_entered" from="ai_death_zone" to="ai_death_zone" method="_on_body_entered"]
-[connection signal="body_entered" from="player death zone" to="player death zone" method="_on_body_entered"]
+[connection signal="body_entered" from="player_death_zone" to="player_death_zone" method="_on_body_entered"]
