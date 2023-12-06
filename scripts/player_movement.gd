@@ -5,12 +5,13 @@ const DECELERATION: float = 10
 
 var _initial_position: Vector2
 
-func reset():
-	velocity = Vector2.ZERO
-	self.set_position(_initial_position)
-
 func _ready():
 	_initial_position = self.get_position()
+	Signals.ball_hit_death_zone.connect(_reset)
+
+func _reset(_body):
+	velocity = Vector2.ZERO
+	self.set_position(_initial_position)
 
 func _process(_delta):
 	velocity = velocity.move_toward(Vector2.ZERO, DECELERATION)

@@ -16,7 +16,10 @@ config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
+
 GlobalProjectSettings="res://scripts/project_settings.gd"
+Signals="*res://scripts/signals.gd"
+ScoreManager="res://scripts/score_manager.gd"
 
 [display]
 

@@ -1,16 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dmnwp8s1c0q8w"]
+[gd_scene load_steps=4 format=3 uid="uid://dmnwp8s1c0q8w"]
 
 [ext_resource type="PackedScene" uid="uid://4ric4mecwg31" path="res://scenes/ai.tscn" id="1_0lhrg"]
-[ext_resource type="Script" path="res://scripts/score_on_death.gd" id="2_q0wue"]
 [ext_resource type="PackedScene" uid="uid://p8hntkifgwhp" path="res://scenes/player.tscn" id="2_v5ay1"]
 [ext_resource type="PackedScene" uid="uid://c7kpam8skvq3o" path="res://scenes/ball.tscn" id="3_7xreh"]
-[ext_resource type="Script" path="res://scripts/init_score_label.gd" id="4_0q7a7"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tkb2l"]
-size = Vector2(4, 768)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ntq8l"]
-size = Vector2(4, 768)
 
 [node name="level" type="Node2D"]
 
@@ -22,63 +14,9 @@ polygon = PackedVector2Array(0, 0, 1366, 0, 444, -56)
 [node name="bottom" type="CollisionPolygon2D" parent="collision"]
 polygon = PackedVector2Array(0, 768, 1366, 768, 975, 849)
 
-[node name="ai" parent="." node_paths=PackedStringArray("ball") instance=ExtResource("1_0lhrg")]
-position = Vector2(8, 65)
-ball = NodePath("../ball")
-
-[node name="ai_death_zone" type="Area2D" parent="." node_paths=PackedStringArray("ball", "opponents_score_label")]
-script = ExtResource("2_q0wue")
-ball = NodePath("../ball")
-opponents_score_label = NodePath("../player_score")
-
-[node name="shape" type="CollisionShape2D" parent="ai_death_zone"]
-position = Vector2(-3, 384)
-shape = SubResource("RectangleShape2D_tkb2l")
-
-[node name="ai_score" type="Label" parent="."]
-offset_left = 634.0
-offset_right = 687.0
-offset_bottom = 30.0
-horizontal_alignment = 1
-script = ExtResource("4_0q7a7")
-
-[node name="label" type="Label" parent="ai_score"]
-layout_mode = 0
-offset_top = 30.0
-offset_right = 53.0
-offset_bottom = 56.0
-text = "AI"
-horizontal_alignment = 1
+[node name="ai" parent="." instance=ExtResource("1_0lhrg")]
 
 [node name="player" parent="." instance=ExtResource("2_v5ay1")]
-position = Vector2(1358, 65)
-
-[node name="player_death_zone" type="Area2D" parent="." node_paths=PackedStringArray("ball", "opponents_score_label")]
-script = ExtResource("2_q0wue")
-ball = NodePath("../ball")
-opponents_score_label = NodePath("../ai_score")
-
-[node name="shape" type="CollisionShape2D" parent="player_death_zone"]
-position = Vector2(1369, 384)
-shape = SubResource("RectangleShape2D_ntq8l")
-
-[node name="player_score" type="Label" parent="."]
-offset_left = 687.0
-offset_right = 740.0
-offset_bottom = 30.0
-horizontal_alignment = 1
-script = ExtResource("4_0q7a7")
-
-[node name="label" type="Label" parent="player_score"]
-layout_mode = 0
-offset_top = 30.0
-offset_right = 53.0
-offset_bottom = 56.0
-text = "YOU"
-horizontal_alignment = 1
 
 [node name="ball" parent="." instance=ExtResource("3_7xreh")]
 position = Vector2(683, 391)
-
-[connection signal="body_entered" from="ai_death_zone" to="ai_death_zone" method="_on_body_entered"]
-[connection signal="body_entered" from="player_death_zone" to="player_death_zone" method="_on_body_entered"]
