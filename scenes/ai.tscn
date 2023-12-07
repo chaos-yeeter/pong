@@ -1,13 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://4ric4mecwg31"]
+[gd_scene load_steps=6 format=3 uid="uid://4ric4mecwg31"]
 
 [ext_resource type="Script" path="res://scripts/ai_movement.gd" id="1_kuuah"]
-[ext_resource type="Texture2D" uid="uid://u6vmv5fd1848" path="res://assets/paddle.png" id="2_rk5jg"]
+[ext_resource type="Texture2D" uid="uid://btsck0awt5j5f" path="res://assets/paddle.png" id="2_jyk8f"]
 [ext_resource type="Script" path="res://scripts/death_zone.gd" id="3_r66h7"]
 [ext_resource type="Script" path="res://scripts/ai_score.gd" id="4_bvs2m"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h2yfd"]
-radius = 8.0
-height = 130.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r1nu8"]
 size = Vector2(4, 768)
@@ -21,10 +17,11 @@ wall_min_slide_angle = 3.14159
 script = ExtResource("1_kuuah")
 
 [node name="sprite" type="Sprite2D" parent="character"]
-texture = ExtResource("2_rk5jg")
+position = Vector2(0, -1)
+texture = ExtResource("2_jyk8f")
 
-[node name="collision" type="CollisionShape2D" parent="character"]
-shape = SubResource("CapsuleShape2D_h2yfd")
+[node name="collision" type="CollisionPolygon2D" parent="character"]
+polygon = PackedVector2Array(0, -65, 2, -65, 3, -63, 4, -60, 5, -56, 6, -51, 7, -43, 8, -32, 8, 30, 7, 41, 6, 49, 5, 54, 4, 58, 3, 61, 2, 63, -2, 63, -3, 61, -4, 58, -5, 54, -6, 49, -7, 41, -8, 30, -8, -32, -7, -43, -6, -51, -5, -56, -4, -60, -3, -63, -2, -65)
 
 [node name="death_zone" type="Area2D" parent="."]
 script = ExtResource("3_r66h7")
