@@ -1,9 +1,8 @@
 extends CharacterBody2D
 
-const MOVEMENT_TIME: float = 8
-const MAX_SPEED: float = 150
+const MOVEMENT_SPEED: float = 100
 const ACCELERATION: float = 5
-const BALL_PROXIMITY_THRESHOLD: int = 50
+const BALL_PROXIMITY_THRESHOLD: int = 300
 const LOOK_AHEAD: int = 4
 
 var viewport_height: int = DisplayServer.window_get_size().y
@@ -23,8 +22,9 @@ func _ready():
 	_initial_position = self.get_position()
 
 func _process(delta):
-	velocity = (_target_position - self.get_position()) / MOVEMENT_TIME
-	velocity = velocity.clamp(Vector2.UP * MAX_SPEED, Vector2.DOWN * MAX_SPEED)
+	var target_velocity = (_target_position - self.get_position()) * MOVEMENT_SPEED
+	target_velocity = target_velocity.clamp(Vector2.UP * MOVEMENT_SPEED, Vector2.DOWN * MOVEMENT_SPEED)
+	velocity = velocity.move_toward(target_velocity, ACCELERATION)
 	move_and_slide()
 
 func _reset(_body):
