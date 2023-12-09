@@ -10,6 +10,5 @@ func _ready():
 	# initialization
 	self.set_text("0")
 
-func _increment_score():
-	var new_score = int(self.get_text()) + 1
+func _increment_score(new_score):
 	self.set_text(str(new_score))
