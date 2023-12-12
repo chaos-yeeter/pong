@@ -1,13 +1,13 @@
 extends CharacterBody2D
 
-const MOVEMENT_SPEED: float = 100
+const MAX_SPEED: float = 100
 const ACCELERATION: float = 5
-const BALL_PROXIMITY_THRESHOLD: int = 300
-const LOOK_AHEAD: int = 4
+const LOOK_AHEAD: int = 300
 
-var viewport_height: int = DisplayServer.window_get_size().y
+var viewport_dimensions: Vector2i = DisplayServer.window_get_size()
+var viewport_height: int = viewport_dimensions.y
 var _initial_position: Vector2
-var _target_position: Vector2
+var _final_ball_position: Vector2
 
 func _ready():
 	# validations
@@ -21,9 +21,13 @@ func _ready():
 	# initialization
 	_initial_position = self.get_position()
 
-func _process(delta):
-	var target_velocity = (_target_position - self.get_position()) * MOVEMENT_SPEED
-	target_velocity = target_velocity.clamp(Vector2.UP * MOVEMENT_SPEED, Vector2.DOWN * MOVEMENT_SPEED)
+func _process(_delta):
+	var movement_factor = abs(_final_ball_position.y - self.get_position().y)
+	var target_velocity =  movement_factor * (_final_ball_position - self.get_position())
+	target_velocity = target_velocity.clamp(
+		Vector2.UP * MAX_SPEED,
+		Vector2.DOWN * MAX_SPEED
+	)
 	velocity = velocity.move_toward(target_velocity, ACCELERATION)
 	move_and_slide()
 
@@ -32,11 +36,46 @@ func _reset(_body):
 	self.set_position(_initial_position)
 
 func _on_ball_position_changed(ball_position: Vector2, ball_velocity: Vector2):
-	var look_ahead = LOOK_AHEAD
-	if ball_position.x - self.get_position().x < BALL_PROXIMITY_THRESHOLD:
-		look_ahead = 1
-	var future_ball_position = ball_position + ball_velocity * look_ahead
-	var target_y_position = int(future_ball_position.y)
-	var total_bounces = int(target_y_position / viewport_height)
-	var remaining_distance_after_bounces = target_y_position % viewport_height
-	_target_position = Vector2(_initial_position.x, target_y_position)
+	# skip calculation if ball is not coming towards ai
+	if ball_velocity.x >= 0:
+		return
+	var estimated_ball_position = ball_position + ball_velocity * LOOK_AHEAD
+	estimated_ball_position = Vector2(
+		0,
+		ball_position.y \
+		- (
+			(estimated_ball_position.y - ball_position.y) \
+			/ (estimated_ball_position.x - ball_position.x) \
+			* ball_position.x
+		)
+	)
+	if estimated_ball_position.y >= 0 and estimated_ball_position.y <= viewport_height:
+		_final_ball_position = estimated_ball_position
+		return
+	var estimated_total_distance = estimated_ball_position.distance_to(ball_position)
+	var ball_direction = Vector2.UP
+	if ball_velocity.y > 0:
+		ball_direction = Vector2.DOWN
+	var distance_to_first_bounce: float
+	var theta: float = abs(PI / 2 - abs(ball_velocity.angle()))
+	if ball_direction == Vector2.UP:
+		distance_to_first_bounce = ball_position.y / cos(theta)
+	else:
+		distance_to_first_bounce = (viewport_height - ball_position.y) / cos(theta)
+	var max_distance_to_bounce = viewport_height / cos(theta)
+	var num_bounces = floori((estimated_total_distance - distance_to_first_bounce) / max_distance_to_bounce)
+	var will_ball_bounce_even_times: bool = num_bounces % 2 == 0
+	var remaining_distance_after_bounces = fmod((estimated_total_distance - distance_to_first_bounce), max_distance_to_bounce)
+	if (
+		(ball_direction == Vector2.UP and will_ball_bounce_even_times)
+		or (ball_direction == Vector2.DOWN and not will_ball_bounce_even_times)
+	): # last bounce on top boundary
+		_final_ball_position = Vector2(
+			estimated_ball_position.x,
+			remaining_distance_after_bounces * cos(theta)
+		)
+	else: # last bounce on bottom boundary
+		_final_ball_position = Vector2(
+			estimated_ball_position.x,
+			(viewport_height - remaining_distance_after_bounces * cos(theta))
+		)
