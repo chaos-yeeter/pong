@@ -21,7 +21,5 @@ func _process(delta):
 	if collision_info:
 		velocity = velocity.bounce(collision_info.get_normal())
 		move_and_collide(velocity * delta)
-	# emit position once every few frames so that others (e.g. ai) can react to
-	# it
-	if Engine.get_frames_drawn() % 10 == 0:
+		# emit position on every collision
 		Signals.ball_position_changed.emit(self.get_position(), self.get_velocity())
