@@ -1,6 +1,7 @@
 extends Node
 
 var _scores: Dictionary
+var _loser_to_winner_mapping: Dictionary
 
 func _ready():
 	# validation
@@ -11,20 +12,25 @@ func _ready():
 		"ai": 0,
 		"player": 0,
 	}
+	_loser_to_winner_mapping = {
+		"ai": "player",
+		"player": "ai",
+	}
 
 	# signals
 	Signals.ball_hit_death_zone.connect(_handle_score)
 
 func _handle_score(lost_character: Node2D):
-	var lost_character_name = lost_character.get_name()
+	var loser_name = lost_character.get_name()
 	assert(
-		lost_character_name == "ai" or lost_character_name == "player",
-		"lost_character ('%s') must be either ai or player" % lost_character_name
+		loser_name == "ai" or loser_name == "player",
+		"lost_character ('%s') must be either ai or player" % loser_name
 	)
+	
+	var winner_name = _loser_to_winner_mapping[loser_name]
+	_scores[winner_name] = _scores[winner_name] + 1
 
-	if lost_character_name == "ai":
-		_scores["player"] = _scores["player"] + 1
-		Signals.player_scored.emit(_scores["player"])
-	elif lost_character_name == "player":
-		_scores["ai"] = _scores["ai"] + 1
-		Signals.ai_scored.emit(_scores["ai"])
+	if winner_name == "player":
+		Signals.player_scored.emit(_scores[winner_name])
+	elif winner_name == "ai":
+		Signals.ai_scored.emit(_scores[winner_name])
