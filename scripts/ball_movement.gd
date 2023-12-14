@@ -14,7 +14,7 @@ func _reset(_body):
 	self.set_position(_initial_position)
 
 func _set_random_velocity():
-	velocity = Vector2(randf_range(0.4, 0.7), randf_range(-0.7, 0.7)) * MOVEMENT_SPEED
+	velocity = Vector2(randf_range(0.4, 0.7), randf_range(-0.7, 0.7)).normalized() * MOVEMENT_SPEED
 
 func _process(delta):
 	var collision_info = move_and_collide(velocity * delta)
