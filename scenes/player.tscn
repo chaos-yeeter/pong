@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://p8hntkifgwhp"]
 
 [ext_resource type="Script" path="res://scripts/player_movement.gd" id="1_h2481"]
-[ext_resource type="Texture2D" uid="uid://btsck0awt5j5f" path="res://assets/paddle.png" id="2_qqxd5"]
+[ext_resource type="Texture2D" uid="uid://dykq33evwnhhq" path="res://assets/paddle.svg" id="2_wvkk2"]
 [ext_resource type="Script" path="res://scripts/death_zone.gd" id="3_kiilq"]
 [ext_resource type="Script" path="res://scripts/player_score.gd" id="4_8tly4"]
 
@@ -18,10 +18,12 @@ script = ExtResource("1_h2481")
 
 [node name="sprite" type="Sprite2D" parent="character"]
 position = Vector2(0, -1)
-texture = ExtResource("2_qqxd5")
+rotation = 3.14159
+texture = ExtResource("2_wvkk2")
 
 [node name="collision" type="CollisionPolygon2D" parent="character"]
-polygon = PackedVector2Array(0, -65, 2, -65, 3, -63, 4, -60, 5, -56, 6, -51, 7, -43, 8, -32, 8, 30, 7, 41, 6, 49, 5, 54, 4, 58, 3, 61, 2, 63, -2, 63, -3, 61, -4, 58, -5, 54, -6, 49, -7, 41, -8, 30, -8, -32, -7, -43, -6, -51, -5, -56, -4, -60, -3, -63, -2, -65)
+position = Vector2(8, -65)
+polygon = PackedVector2Array(0, 0, -1, 0, -10, 27, -15, 48, -16, 54, -16, 74, -15, 80, -9, 104, -1, 128, 0, 128)
 
 [node name="death_zone" type="Area2D" parent="."]
 script = ExtResource("3_kiilq")
