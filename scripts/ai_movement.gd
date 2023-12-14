@@ -63,12 +63,12 @@ func _on_ball_position_changed(ball_position: Vector2, ball_velocity: Vector2):
 	else:
 		distance_to_first_bounce = (viewport_height - ball_position.y) / cos(theta)
 	var max_distance_to_bounce = viewport_height / cos(theta)
-	var num_bounces = floori((estimated_total_distance - distance_to_first_bounce) / max_distance_to_bounce)
+	var num_bounces = 1 + floori((estimated_total_distance - distance_to_first_bounce) / max_distance_to_bounce)
 	var will_ball_bounce_even_times: bool = num_bounces % 2 == 0
 	var remaining_distance_after_bounces = fmod((estimated_total_distance - distance_to_first_bounce), max_distance_to_bounce)
 	if (
-		(ball_direction == Vector2.UP and will_ball_bounce_even_times)
-		or (ball_direction == Vector2.DOWN and not will_ball_bounce_even_times)
+		(ball_direction == Vector2.UP and not will_ball_bounce_even_times)
+		or (ball_direction == Vector2.DOWN and will_ball_bounce_even_times)
 	): # last bounce on top boundary
 		_final_ball_position = Vector2(
 			estimated_ball_position.x,
