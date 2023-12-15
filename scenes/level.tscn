@@ -9,10 +9,10 @@
 [node name="collision" type="StaticBody2D" parent="."]
 
 [node name="top" type="CollisionPolygon2D" parent="collision"]
-polygon = PackedVector2Array(0, 0, 1366, 0, 444, -56)
+polygon = PackedVector2Array(-5, 0, 1371, 0, 444, -56)
 
 [node name="bottom" type="CollisionPolygon2D" parent="collision"]
-polygon = PackedVector2Array(0, 768, 1366, 768, 975, 849)
+polygon = PackedVector2Array(-5, 768, 1371, 768, 975, 849)
 
 [node name="ai" parent="." instance=ExtResource("1_0lhrg")]
 
