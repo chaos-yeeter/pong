@@ -11,7 +11,7 @@ size = Vector2(4, 768)
 [node name="player" type="Node2D"]
 
 [node name="character" type="CharacterBody2D" parent="."]
-position = Vector2(1358, 65)
+position = Vector2(1358, 384)
 motion_mode = 1
 wall_min_slide_angle = 3.14159
 script = ExtResource("1_h2481")
