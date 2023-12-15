@@ -16,6 +16,8 @@ func _ready():
 	Signals.ball_hit_death_zone.connect(_reset)
 
 func _process(_delta):
+	# This is a workaround to prevent paddle from moving after collision
+	position.x = _initial_position.x
 	velocity = velocity.move_toward(Vector2.ZERO, DECELERATION)
 	if Input.is_action_pressed("move_up"):
 		velocity = Vector2.UP * MOVEMENT_SPEED
